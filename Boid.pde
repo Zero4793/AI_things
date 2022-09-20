@@ -34,11 +34,11 @@ class Boid{
     vel.mult(.99);  //friction
     
     //motion
-    pos.add(vel);
     if(pos.x<0){vel.x=abs(vel.x);}
     if(pos.x>width){vel.x=-abs(vel.x);}
     if(pos.y<0){vel.y=abs(vel.y);}
     if(pos.y>height){vel.y=-abs(vel.y);}
+    pos.add(vel);
   }
   
   
