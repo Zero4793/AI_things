@@ -1,6 +1,6 @@
 
-int TS = 4;  //tileSize
-Tile[] AI = new Tile[TS*TS*2];
+int GS = 4;  //gridsize
+Tile[] AI = new Tile[GS*GS*2];
 
 void setup(){
   size(1600,800);
@@ -20,10 +20,10 @@ void draw(){
 
 
 void mousePressed(){
-  int s = height/TS;
+  int s = height/GS;
   int x = mouseX/s;
   int y = mouseY/s;
-  int i = x+y*2*TS;
+  int i = x+y*2*GS;
   if(mouseButton==LEFT){AI[i].state += AI[i].state==1? 0 : 1;}  //increment if not already max
   if(mouseButton==RIGHT){AI[i].state -= AI[i].state==-1? 0 : 1;}  //dec if not min
 }
