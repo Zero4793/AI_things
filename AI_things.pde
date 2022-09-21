@@ -18,4 +18,6 @@ void draw(){
       boids[i] = new Boid(boids[(int)random(boids.length)]);
     }
   }
+  noFill();  stroke(200);
+  circle(mouseX,mouseY,60);
 }
