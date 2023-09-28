@@ -5,15 +5,20 @@ class Brain{
   //add memory
   //add structure change/evolve
   
-  //new random brain | input, <layers>, outputs
-  Brain(int[] layers, float Mutate){
+  //new random brain | input, <layers>, outputs, memory
+  Brain(int[] layers, int memory, float Mutate){
     mutate = Mutate;
-    nodes = new Node[layers.length][];  //input, 2*process, output
+    nodes = new Node[layers.length][];  //input+mem, process, output+mem
     for(int x=0; x<nodes.length; x++){
-      nodes[x] = new Node[layers[x]];
+      int m = (x == 0 || x == nodes.length - 1) ? memory : 0;
+      nodes[x] = new Node[layers[x]+m];
       for(int y=0; y<nodes[x].length; y++){
-        if(x==0){nodes[x][y] = new Node();}
-        else{nodes[x][y] = new Node(nodes[x-1], mutate);}
+        if(x==0){
+          nodes[x][y] = new Node();
+        }
+        else{
+          nodes[x][y] = new Node(nodes[x-1], mutate);
+        }
       }
     }
   }
@@ -35,13 +40,15 @@ class Brain{
 
   //float output[] = process(float input[])
   float[] process(float[] in){
-    //sense
-    for(int i=0; i<in.length && i<nodes[0].length; i++){
-      nodes[0][i].value = in[i];
+    int om = nodes[nodes.length-1].length - nodes[0].length;
+    //sense & member
+    for(int i=0; i<nodes[0].length; i++){
+      if(i<in.length){nodes[0][i].value = in[i];}
+      else{nodes[0][i].value = nodes[nodes.length-1][i+om].value*50;}
     }
     //think
     for(int x=1; x<nodes.length; x++){
-      boolean out = x==nodes.length-1 ? true : false;
+      boolean out = x==nodes.length-1? true : false;
       for(int y=0; y<nodes[x].length; y++){
         nodes[x][y].process(out);
       }

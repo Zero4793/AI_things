@@ -41,7 +41,8 @@ class Node{
     }
     //determine activation function
     //none, sigmoid, binary, etc?
-    if(out){value = 1 / (1 + exp(value));}
+    // externalise determination, all get sigmoid, then in brain RecU outputs
+    if(out){value = 1 / (1 + exp(-value));}
     else{value = max(0,value);}
   }
 }
