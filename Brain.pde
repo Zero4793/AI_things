@@ -44,7 +44,7 @@ class Brain{
     //sense & member
     for(int i=0; i<nodes[0].length; i++){
       if(i<in.length){nodes[0][i].value = in[i];}
-      else{nodes[0][i].value = nodes[nodes.length-1][i+om].value*50;}
+      else{nodes[0][i].value = nodes[nodes.length-1][i+om].value;}
     }
     //think
     for(int x=1; x<nodes.length; x++){

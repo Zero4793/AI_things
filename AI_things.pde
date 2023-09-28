@@ -15,7 +15,7 @@ void draw(){
   background(16,16,32);
   for(int i=0; i<AI.length; i++){
     //input
-    float[] in = {0,0};//temp disable input to test memory alone {mouseX-width/2,mouseY-height/2};
+    float[] in = {2*mouseX/(float)width-1,2*mouseY/(float)height-1};
     //process
     float[] out = AI[i].process(in);
     //output
