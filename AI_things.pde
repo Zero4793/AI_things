@@ -19,11 +19,12 @@ void draw(){
     float[] out = AI[i].process(in);
     //output
     int n=0;
+    strokeWeight(4);
     fill(out[n++]*250,out[n++]*250,out[n++]*250);
     circle(out[n++]*width,out[n++]*height,out[n++]*100+10);
     
     //kill and repopulate
-    n=3;//set to position and size output, ignoring color
+    n=3;//set to position and size output, ignoring aesthetics
     if(dist(mouseX,mouseY,out[n++]*width,out[n++]*height)<out[n++]*50+5){
       //on touch, kill this AI and replace it with a mutated child of a random other
       AI[i] = new Brain(AI[(int)random(AI.length)]);

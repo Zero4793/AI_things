@@ -54,7 +54,7 @@ class Brain{
   Brain(Brain parent){
     //TODO:
     // mutate brain structure
-    mutate = parent.mutate * random(.5,1.5);
+    mutate = parent.mutate * random(.8,1.25);
     
     //memory
     memory = new Node[parent.memory.length];
