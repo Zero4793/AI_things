@@ -50,7 +50,7 @@ class Brain{
   }
   
   
-  //brain made slightly altered of parent
+  //inherit and mutate | parent
   Brain(Brain parent){
     //TODO:
     // mutate brain structure
@@ -187,6 +187,18 @@ class Brain{
         }
       }
 
+      //check memory layer
+      for(int m=0; m<memory.length; m++){
+        if(j==read.length){break;}
+        for(int k=0; k<parent.memory[n].read.length; k++){
+          if(parent.memory[m] == parent.memory[n].read[k]){
+            read[j] = memory[m];
+            j++;
+            break;
+          }
+        }
+      }
+
       //check process layer
       for(int m=0; m<process.length; m++){
         if(j==read.length){break;}
@@ -199,20 +211,8 @@ class Brain{
         }
       }
       
-      //check memory layer
-      for(int m=0; m<memory.length; m++){
-        if(j==read.length){break;}
-        for(int k=0; k<parent.memory[n].read.length; k++){
-          if(parent.memory[m] == parent.memory[n].read[k]){
-            read[j] = memory[m];
-            j++;
-            break;
-          }
-        }
-      }
-      
       //initialize memory node with all mirrored connections
-      memory[n].init(read,mutate);
+      memory[n].init(read,parent.memory[n],mutate);
     }
     //end memory
 

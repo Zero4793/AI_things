@@ -11,8 +11,11 @@ class Node{
   Node(Node[] readNodes, float mutate){
     this.init(readNodes, mutate);
   }
+  Node(Node[] readNodes, Node parent, float mutate){
+    this.init(readNodes, parent, mutate);
+  }
   
-  //set up node. separated from obj creation because of memory nodes. also allows ressetting without creating new
+  //new random node
   void init(Node[] readNodes, float mutate){
     read = readNodes;
     weights = new float[read.length];
@@ -21,15 +24,14 @@ class Node{
     }
     bias = random(-mutate,mutate);
   }
-
-  //copy node
-  Node(Node[] readNodes, Node parent, float mutate){
-    read = readNodes;
-    weights = new float[read.length];
+  
+  //mutate child node
+  void init(Node[] readNodes, Node parent, float mutate){
+    this.init(readNodes,mutate);
     for(int i=0; i<read.length; i++){
-      weights[i] = parent.weights[i] + random(-mutate,mutate);
+      weights[i] += parent.weights[i];
     }
-    bias = parent.bias + random(-mutate,mutate);
+    bias += parent.bias;
   }
   
   void process(boolean sigmoid){

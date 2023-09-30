@@ -1,6 +1,4 @@
-
 Brain[] AI = new Brain[64];
-
 
 void setup(){
   size(1600,900);
@@ -8,7 +6,6 @@ void setup(){
     AI[i] = new Brain(2, 2, 4, 6, 8, 0.01); //In, Px, Py, Out, Mem, Mut
   }
 }
-
 
 void draw(){
   background(16,16,32);
