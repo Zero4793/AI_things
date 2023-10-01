@@ -10,9 +10,9 @@ class Boid{
   
   Boid(int id){
     exist = true;
-    mutate = 0.1;
+    mutate = 0.01;
     ID = id;
-    brain = new Brain(2, 2, 4, 6, 8, 0.5); //In, Px, Py, Out, Mem, Mut
+    brain = new Brain(2, 2, 4, 6, 8, mutate); //In, Px, Py, Out, Mem, Mut
     pos = new PVector();
   }
   
