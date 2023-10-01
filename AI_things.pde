@@ -8,7 +8,6 @@ int ID;
 
 // BUGS:
 // mysterious vanishing boids, population gradually decreases, array/list doesnt actually shrink though, they just invisible?
-// boids converging in single spot. not copy ant mutate properly? incorrect pointers?
 
 
 void setup(){

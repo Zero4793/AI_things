@@ -143,6 +143,7 @@ Node[] merge(Node[] a, Node[] b){
 
 // ARCHIVE
 // unused and broken code that i plan to fix later
+// still causes extreme behaviour asnd disapearing
 
 ////inherit and mutate | parent
 //Brain(Brain parent, float mutate){  //ERROR here i think
