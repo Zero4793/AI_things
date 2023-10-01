@@ -1,5 +1,5 @@
 class Node{
-  Node[] read; //list of nodes to read from if itself not input node
+  Node[] read; //list of nodes to read from
   float[] weights; //weights for nodes reading from
   float bias; //flat bias
   float value; //resultant output
@@ -11,6 +11,7 @@ class Node{
   Node(Node[] readNodes, float mutate){
     this.init(readNodes, mutate);
   }
+  
   Node(Node[] readNodes, Node parent, float mutate){
     this.init(readNodes, parent, mutate);
   }

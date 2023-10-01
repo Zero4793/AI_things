@@ -1,30 +1,34 @@
-Brain[] AI = new Brain[64];
+ArrayList<Boid> boids = new ArrayList<Boid>();
+int ID;
+
+// TODO:
+// implement structure evolution and pruning
+// brain saving, probs json format
+
+
+// BUGS:
+// mysterious vanishing boids, population gradually decreases, array/list doesnt actually shrink though, they just invisible?
+// boids converging in single spot. not copy ant mutate properly? incorrect pointers?
+
 
 void setup(){
   size(1600,900);
-  for(int i=0; i<AI.length; i++){
-    AI[i] = new Brain(2, 2, 4, 6, 8, 0.01); //In, Px, Py, Out, Mem, Mut
+  for(int i=0; i<64; i++){
+    boids.add(new Boid(i));
   }
+  ID = boids.size();
 }
+
 
 void draw(){
   background(16,16,32);
-  for(int i=0; i<AI.length; i++){
-    //input
-    float[] in = {2*mouseX/(float)width-1,2*mouseY/(float)height-1};
-    //process
-    float[] out = AI[i].process(in);
-    //output
-    int n=0;
-    strokeWeight(4);
-    fill(out[n++]*250,out[n++]*250,out[n++]*250);
-    circle(out[n++]*width,out[n++]*height,out[n++]*100+10);
-    
-    //kill and repopulate
-    n=3;//set to position and size output, ignoring aesthetics
-    if(dist(mouseX,mouseY,out[n++]*width,out[n++]*height)<out[n++]*50+5){
-      //on touch, kill this AI and replace it with a mutated child of a random other
-      AI[i] = new Brain(AI[(int)random(AI.length)]);
+  for(int i=0; i<boids.size(); i++){
+    boids.get(i).process();
+    boids.get(i).display();
+    if(!boids.get(i).exist){
+      boids.add(new Boid(boids.get((int)random(boids.size())),ID));
+      boids.remove(i);
+      ID++;
     }
   }
 }
