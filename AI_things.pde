@@ -28,6 +28,7 @@ void draw(){
       boids.add(new Boid(boids.get((int)random(boids.size())),ID));
       boids.remove(i);
       ID++;
+      i--;
     }
   }
 }

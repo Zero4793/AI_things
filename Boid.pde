@@ -10,7 +10,7 @@ class Boid{
   
   Boid(int id){
     exist = true;
-    mutate = 0.01;
+    mutate = 0.1;
     ID = id;
     brain = new Brain(2, 2, 4, 6, 8, mutate); //In, Px, Py, Out, Mem, Mut
     pos = new PVector();
@@ -20,7 +20,7 @@ class Boid{
   Boid(Boid parent, int id){
     exist = true;
     ID = id;
-    mutate = parent.mutate * random(.8,1.25);
+    mutate = parent.mutate * random(.9,1.1);
     brain = new Brain(parent.brain, mutate);
     pos = new PVector();
   }
@@ -42,9 +42,11 @@ class Boid{
     size = out[n++]*100+20;
     
     //die
-    if(dist(mouseX,mouseY,pos.x,pos.y)<size/2){
-      exist = false;
-    }
+    //mouse
+    if(dist(mouseX,mouseY,pos.x,pos.y)<size/2){exist = false;}
+    //wall
+    int m = (int)size/2; //margin
+    if(pos.x<m || pos.y<m || pos.x>width-m || pos.y>height-m){exist=false;}
   }
   
   
