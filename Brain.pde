@@ -14,7 +14,7 @@ class Brain{
     memory = new Node[mem];
     for(int i=0; i<memory.length; i++){
       memory[i] = new Node();
-    }
+    }// value = parent.value?
     
     //input
     input = new Node[in];

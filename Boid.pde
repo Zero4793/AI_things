@@ -3,17 +3,18 @@ class Boid{
   boolean exist;
   float mutate;
   Brain brain;
-  PVector pos;
+  PVector pos, vel;
   float size;
   float R,G,B;
   
   
   Boid(int id){
     exist = true;
-    mutate = 0.1;
+    mutate = .1;
     ID = id;
-    brain = new Brain(2, 2, 4, 6, 8, mutate); //In, Px, Py, Out, Mem, Mut
-    pos = new PVector();
+    brain = new Brain(4, 2, 4, 6, 2, mutate); //In, Px, Py, Out, Mem, Mut
+    pos = new PVector(width/2,height/2);
+    vel = new PVector(1,0);
   }
   
   
@@ -22,13 +23,14 @@ class Boid{
     ID = id;
     mutate = parent.mutate * random(.9,1.1);
     brain = new Brain(parent.brain, mutate);
-    pos = new PVector();
+    pos = new PVector(parent.pos.x,parent.pos.y);
+    vel = new PVector(parent.vel.x,parent.vel.y);
   }
   
   
   void process(){
     //inputs
-    float[] in = {2*mouseX/(float)width-1,2*mouseY/(float)height-1};
+    float[] in = {2*pos.x/(float)width-1,2*pos.y/(float)height-1,vel.x,vel.y};
     
     //process/think
     float[] out = brain.process(in);
@@ -38,15 +40,20 @@ class Boid{
     R = out[n++]*250;
     G = out[n++]*250;
     B = out[n++]*250;
-    pos.set(out[n++]*width,out[n++]*height);
+    vel.add((out[n++]-.5),(out[n++]-.5));
     size = out[n++]*100+20;
+    
+    //move
+    pos.add(vel);
     
     //die
     //mouse
-    if(dist(mouseX,mouseY,pos.x,pos.y)<size/2){exist = false;}
+    //if(dist(mouseX,mouseY,pos.x,pos.y)<size/2){exist = false;}
     //wall
     int m = (int)size/2; //margin
     if(pos.x<m || pos.y<m || pos.x>width-m || pos.y>height-m){exist=false;}
+    //slow
+    if(vel.mag()<.2){exist=false;}
   }
   
   

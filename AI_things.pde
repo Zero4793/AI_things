@@ -5,7 +5,6 @@ int ID;
 // implement structure evolution and pruning
 // brain saving, probs json format
 
-
 // BUGS:
 // mysterious vanishing boids, population gradually decreases, array/list doesnt actually shrink though, they just invisible?
 
