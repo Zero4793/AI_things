@@ -6,22 +6,25 @@ class Boid{
   PVector pos, vel;
   float size;
   float R,G,B;
+  float metaMutate = 0.01;
+  float friction = 0.02;
   
   
   Boid(int id){
     exist = true;
     mutate = .1;
     ID = id;
-    brain = new Brain(4, 2, 4, 6, 2, mutate); //In, Px, Py, Out, Mem, Mut
+    brain = new Brain(4, 2, 6, 6, 4, mutate); //In, Px, Py, Out, Mem, Mut
     pos = new PVector(width/2,height/2);
-    vel = new PVector(1,0);
+    vel = new PVector(0,0);
   }
   
   
   Boid(Boid parent, int id){
     exist = true;
     ID = id;
-    mutate = parent.mutate * random(.9,1.1);
+    mutate = parent.mutate + random(-metaMutate,metaMutate);
+    mutate = mutate < 0 ? 0 : mutate;
     brain = new Brain(parent.brain, mutate);
     pos = new PVector(parent.pos.x,parent.pos.y);
     vel = new PVector(parent.vel.x,parent.vel.y);
@@ -44,6 +47,7 @@ class Boid{
     size = out[n++]*100+20;
     
     //move
+    vel.mult(1-friction);
     pos.add(vel);
     
     //die
@@ -52,13 +56,13 @@ class Boid{
     //wall
     int m = (int)size/2; //margin
     if(pos.x<m || pos.y<m || pos.x>width-m || pos.y>height-m){exist=false;}
-    //slow
-    if(vel.mag()<.2){exist=false;}
+    //slow - threshold increase over time
+    if(vel.mag()<t/20000){exist=false;}
   }
   
   
   void display(){
-    strokeWeight(4);
+    strokeWeight(mutate*10);
     fill(R,G,B);
     circle(pos.x,pos.y,size);
   }

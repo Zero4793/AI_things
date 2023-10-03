@@ -1,12 +1,14 @@
 ArrayList<Boid> boids = new ArrayList<Boid>();
 int ID;
+float t = 0;
 
 // TODO:
-// implement structure evolution and pruning
 // brain saving, probs json format
-
-// BUGS:
-// mysterious vanishing boids, population gradually decreases, array/list doesnt actually shrink though, they just invisible?
+// food, strokeweight = fat = energy
+// kill no longer breed, boids choose when to breed, evolved vars to track how much of their energy/mass goes into child, how much is child mass/starting energy
+// eyes, marching rays, each step, look at distance to all objs, if less then radius, return, else track min distance, next step is that far (-radius)
+// eyes return 4 vals, r,g,b, 1/dist (0 in case of no target)
+// this makes vals small/normalized, larger for closer, and return 0 rather than infinite for no target
 
 
 void setup(){
@@ -24,10 +26,11 @@ void draw(){
     boids.get(i).process();
     boids.get(i).display();
     if(!boids.get(i).exist){
-      boids.add(new Boid(boids.get((int)random(boids.size())),ID));
+      boids.add(new Boid(boids.get((int)random(boids.size()/2)),ID));  //size/2 so only from top half of list, these are older boids and so likely better
       boids.remove(i);
       ID++;
       i--;
     }
   }
+  t++;
 }
