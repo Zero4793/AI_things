@@ -24,11 +24,13 @@ class SenseEye{
         float minDist = 0;
         if(showSight){point(pos.x+dir.x,pos.y+dir.y);}
         for(Boid B : boid){
-          float dist = dist(pos.x+dir.x,pos.y+dir.y,B.pos.x,B.pos.y);
-          if(1/dist>minDist){minDist=1/dist;}
-          if(B!=P && dist<B.size){
-            see = false;
-            vision[i] = -range+dir.mag();
+          if(B!=P){
+            float dist = dist(pos.x+dir.x,pos.y+dir.y,B.pos.x,B.pos.y);
+            if(1/dist>minDist){minDist=1/dist;}
+            if(dist<B.size){
+              see = false;
+              vision[i] = -range+dir.mag();
+            }
           }
         }
         for(PVector F : food){

@@ -20,7 +20,7 @@ class Boid{
   Boid(){
     ID = str(count); count++; age=0;
     mutate=0.1;
-    brain = new Brain(16, 2, 8, 2, 2, mutate);  //input, process-x, process-y, output, memory, mutate
+    brain = new Brain(15, 2, 8, 2, 8, mutate);  //input, process-x, process-y, output, memory, mutate
     //pos = new PVector(width/2,height/2);
     pos = new PVector(random(width),random(height));
     vel = new PVector(0,0.1);
@@ -108,7 +108,6 @@ class Boid{
     in[n++] = vel.heading();
     in[n++] = vel.mag();
     in[n++] = size;
-    in[n++] = age;
     
     //eyes
     for(int i=0; i<eyes.length; i++){

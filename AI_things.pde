@@ -83,12 +83,13 @@ void draw(){
 
   if(text){
     fill(0,100);
-    rect(5,70,140,90,5);
+    rect(5,70,140,120,5);
     fill(200);
     textSize(20); textAlign(LEFT);
-    text("Space = Pause", 10, 90); // Added instruction for pausing
-    text("T = Toggle Text", 10, 120); // Added instruction for toggling text  
-    text("I = Display Sight", 10, 150); // Added instruction for toggling vision display
+    text("Space = Pause", 10, 90);
+    text("T = Toggle Text", 10, 120);
+    text("I = Display Sight", 10, 150);
+    text("Scroll = Food", 10, 180);
   }
 }
 
