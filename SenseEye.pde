@@ -18,7 +18,7 @@ class SenseEye{
     stroke(250); strokeWeight(2);
     
     for(int i=0; i<5; i+=1){
-      dir.setMag(P.size/2);
+      dir.setMag(P.size/4);
       boolean see = true;
       while(see && dir.mag()<range){
         float minDist = 0;

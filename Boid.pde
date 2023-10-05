@@ -1,4 +1,5 @@
 int count;
+float metaMutate = 0.01;
 
 class Boid{
   boolean dead = false;
@@ -20,7 +21,7 @@ class Boid{
   Boid(){
     ID = str(count); count++; age=0;
     mutate=0.1;
-    brain = new Brain(15, 2, 8, 2, 8, mutate);  //input, process-x, process-y, output, memory, mutate
+    brain = new Brain(15, 2, 8, 2, 2, mutate);  //input, process-x, process-y, output, memory, mutate
     //pos = new PVector(width/2,height/2);
     pos = new PVector(random(width),random(height));
     vel = new PVector(0,0.1);
@@ -36,7 +37,7 @@ class Boid{
   //child AI
   Boid(Boid P){
     ID = P.ID+":"+str(count); count++; age=0;
-    mutate = P.mutate + random(-P.mutate,P.mutate);
+    mutate = P.mutate + random(-metaMutate,metaMutate);
     brain = new Brain(P.brain, mutate);
     pos = new PVector(P.pos.x-P.dir.x*P.size/2,P.pos.y-P.dir.y*P.size/2);
     vel = new PVector(P.vel.x,P.vel.y);
@@ -58,8 +59,9 @@ class Boid{
     
     size-=vel.mag()/100;
     size-=age;
+    //size-=0.0001;
     
-    if(size<8){dead=true;}
+    if(size<8){dead=true;starve++;}
     for(int i=0; i<food.size(); i++){
       if(dist(pos.x,pos.y,food.get(i).x,food.get(i).y)<size/2){
         size+=8;
@@ -77,6 +79,7 @@ class Boid{
       if(boid.get(i)!=this && boid.get(i).size*1.5 < size && dist(pos.x,pos.y,boid.get(i).pos.x,boid.get(i).pos.y)<size/2 && diff(boid.get(i))>48){
         size+=boid.get(i).size/2;
         boid.get(i).dead=true;
+        eaten++;
       }
     }
     if(size>maxSize){
@@ -134,7 +137,6 @@ class Boid{
     strokeWeight(1);
     fill(R,G,B);
     circle(pos.x,pos.y,size);
-    //line(pos.x,pos.y,pos.x+dir.x*size/2,pos.y+dir.y*size/2);
     fill(200);
     textAlign(CENTER,CENTER);
     textSize(size/4);
