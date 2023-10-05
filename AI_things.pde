@@ -1,10 +1,10 @@
 // TODO:
 // brain saving, probs json format
-// food, strokeweight = fat = energy
-// kill no longer breed, boids choose when to breed, evolved vars to track how much of their energy/mass goes into child, how much is child mass/starting energy
-// eyes, marching rays, each step, look at distance to all objs, if less then radius, return, else track min distance, next step is that far (-radius)
-// eyes return 4 vals, r,g,b, 1/dist (0 in case of no target)
-// this makes vals small/normalized, larger for closer, and return 0 rather than infinite for no target
+// strokeweight = fat = energy
+// boids choose when to breed, evolved vars to track how much of their energy/mass goes into child, how much is child mass/starting energy
+// eyes:
+//   eyes return 4 vals, r,g,b, 1/dist (0 in case of no target)
+//   this makes vals small/normalized, larger for closer, and return 0 rather than infinite for no target
 
 
 int t = 0; int rate=60;
@@ -12,7 +12,7 @@ int time; int delta;
 
 float ANGLE = 2*PI/3;
 
-boolean pause, text;
+boolean pause, text, showSight;
 
 ArrayList<Boid> boid = new ArrayList<Boid>();
 ArrayList<PVector> food = new ArrayList<PVector>();
@@ -25,7 +25,7 @@ void setup(){
   size(1600,900);
   //noCursor();
   //frameRate(16);
-  pause = false; text = true;
+  pause = false; text = true; showSight = false;
   
   for(int i=0; i<128; i++){
     food.add(new PVector(random(width),random(height)));
@@ -79,7 +79,17 @@ void draw(){
   textSize(50); fill(200);
   text(rate,30,20);
   textSize(20); fill(200);
-  text(delta,15,60);
+  text(delta,15,50);
+
+  if(text){
+    fill(0,100);
+    rect(5,70,140,90,5);
+    fill(200);
+    textSize(20); textAlign(LEFT);
+    text("Space = Pause", 10, 90); // Added instruction for pausing
+    text("T = Toggle Text", 10, 120); // Added instruction for toggling text  
+    text("I = Display Sight", 10, 150); // Added instruction for toggling vision display
+  }
 }
 
 
@@ -104,6 +114,9 @@ void keyPressed(){
       break;
     case 't':
       text = !text;
+      break;
+    case 'i':
+      showSight = !showSight;
       break;
   }
   //ESC = save boids

@@ -15,26 +15,31 @@ class SenseEye{
   float[] process(PVector pos, PVector dir, Boid P){
     float[] vision = new float[10];
     dir.rotate(angle-.4);
+    stroke(250); strokeWeight(2);
     
     for(int i=0; i<5; i+=1){
       dir.setMag(P.size/2);
       boolean see = true;
       while(see && dir.mag()<range){
-        dir.setMag(dir.mag()+16);
-        //stroke(250); point(pos.x+dir.x,pos.y+dir.y);
+        float minDist = 0;
+        if(showSight){point(pos.x+dir.x,pos.y+dir.y);}
         for(Boid B : boid){
-          if(B!=P && dist(pos.x+dir.x,pos.y+dir.y,B.pos.x,B.pos.y)<B.size){
+          float dist = dist(pos.x+dir.x,pos.y+dir.y,B.pos.x,B.pos.y);
+          if(1/dist>minDist){minDist=1/dist;}
+          if(B!=P && dist<B.size){
             see = false;
             vision[i] = -range+dir.mag();
-            //pupil += pupil<1.0/5 ? 1/dir.mag() : 0 ;
           }
         }
         for(PVector F : food){
-          if(dist(pos.x+dir.x,pos.y+dir.y,F.x,F.y)<16){
+          float dist = dist(pos.x+dir.x,pos.y+dir.y,F.x,F.y);
+          if(1/dist>minDist){minDist=1/dist;}
+          if(dist<16){
             see = false;
             vision[i] = range-dir.mag();
           }
         }
+        dir.setMag(dir.mag()+1/minDist);
       }
       dir.rotate(.2);
     }

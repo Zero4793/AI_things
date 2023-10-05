@@ -132,6 +132,7 @@ class Boid{
 
   void display(){
     stroke(0);
+    strokeWeight(1);
     fill(R,G,B);
     circle(pos.x,pos.y,size);
     //line(pos.x,pos.y,pos.x+dir.x*size/2,pos.y+dir.y*size/2);
