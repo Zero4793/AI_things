@@ -59,8 +59,8 @@ void draw(){
     circle(F.x,F.y,12);
     if(!pause){
       //food moves to center
-      F.x += (width/2-F.x)/2000;
-      F.y += (height/2-F.y)/2000;
+      F.x += (width/2-F.x)/5000;
+      F.y += (height/2-F.y)/5000;
     }
   }
   

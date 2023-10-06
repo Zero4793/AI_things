@@ -21,7 +21,7 @@ class Boid{
   Boid(){
     ID = str(count); count++; age=0;
     mutate=0.1;
-    brain = new Brain(15, 2, 8, 2, 2, mutate);  //input, process-x, process-y, output, memory, mutate
+    brain = new Brain(11, 3, 8, 2, 2, mutate);  //input, process-x, process-y, output, memory, mutate
     //pos = new PVector(width/2,height/2);
     pos = new PVector(random(width),random(height));
     vel = new PVector(0,0.1);
@@ -106,11 +106,7 @@ class Boid{
     //sense
     int n=0;
     float[] in = new float[brain.input.length];
-    in[n++] = width/2-pos.x;
-    in[n++] = height/2-pos.y;
-    in[n++] = vel.heading();
     in[n++] = vel.mag();
-    in[n++] = size;
     
     //eyes
     for(int i=0; i<eyes.length; i++){
